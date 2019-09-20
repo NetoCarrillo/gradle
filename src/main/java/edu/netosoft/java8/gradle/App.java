@@ -3,12 +3,27 @@
  */
 package edu.netosoft.java8.gradle;
 
-public class App{
-	public String getGreeting(){
-		return "Hello world.";
-	}
+import edu.netosoft.java8.gradle.files.LastPdfAdded;
+import edu.netosoft.java8.gradle.files.PDFWatcher;
 
+public class App{
+	private static final String DEFAULT_DOWNLOAD_DIR = "C:\\Users\\Ernesto\\Downloads";
+	private static final String DEFAULT_REPO_DIR = "D:\\tmp";
+	private static final int DEFAULT_WAIT_SECCONDS = 5;
+	
 	public static void main(String[] args){
-		System.out.println(new App().getGreeting());
+		PDFWatcher watcher = new PDFWatcher();
+		
+		watcher.setDownloadDir(DEFAULT_DOWNLOAD_DIR);
+		watcher.setRepoDir(DEFAULT_REPO_DIR);
+		watcher.setWaitSeconds(DEFAULT_WAIT_SECCONDS);
+		
+		watcher.watchForNewPdf();
+		
+		LastPdfAdded lastAdded = new LastPdfAdded();
+		lastAdded.setDownloadDir(DEFAULT_DOWNLOAD_DIR);
+		lastAdded.setRepoDir(DEFAULT_REPO_DIR);
+		lastAdded.move();
 	}
+	
 }
